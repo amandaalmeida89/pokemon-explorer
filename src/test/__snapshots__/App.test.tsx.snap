@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component renders initial page 1`] = `
+<div>
+  <div
+    class="MuiStack-root css-184aq0k-MuiStack-root"
+  >
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthLg css-1xon2ic-MuiContainer-root"
+    >
+      <div
+        class="MuiStack-root css-w04vg1-MuiStack-root"
+      >
+        <div
+          class="MuiCardMedia-root css-18umj25-MuiCardMedia-root"
+          role="img"
+          style="background-image: url(default);"
+          title="logo"
+        />
+      </div>
+    </div>
+    <div
+      class="MuiStack-root css-f6kw00-MuiStack-root"
+    >
+      <div
+        class="MuiTypography-root MuiTypography-inherit css-5mwcfd-MuiTypography-root"
+      >
+        Copyright © 
+        2024
+         - by Amanda Nascimento
+      </div>
+      <a
+        href="https://github.com/amandaalmeida89/pokemon-explorer"
+        target="new"
+      >
+        <div
+          class="MuiCardMedia-root css-1qs2s98-MuiCardMedia-root"
+          role="img"
+          style="background-image: url(./github.png);"
+          title="github Logo"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+`;
