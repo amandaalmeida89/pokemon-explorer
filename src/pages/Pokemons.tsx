@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { PokemonList } from '../components/PokemonList'
+import { PokemonList } from '../components/PokemonList';
 import { Pokemon } from '../types/Pokemon';
 import { Stack } from '@mui/system';
 import Pagination from '@mui/material/Pagination';
 import Alert from '@mui/material/Alert';
-import { Context } from '../services/ContextProvider'
-import { PokemonList as List } from '../types/Pokemon'
+import { Context } from '../services/ContextProvider';
+import { PokemonList as List } from '../types/Pokemon';
 
 export const Pokemons = () => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
@@ -19,30 +19,30 @@ export const Pokemons = () => {
   const pagination = Math.ceil(pokemonCount/ 20);
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
-    setPagination(value)
+    setPagination(value);
   };
 
   const setPagination = (value: number) => {
-    setLoading(true)
+    setLoading(true);
     setPage(value);
-    setOffset((value - 1) * 20)
-  }
+    setOffset((value - 1) * 20);
+  };
 
   useEffect(() => {
-    const currentPage = state?.page
+    const currentPage = state?.page;
     if(currentPage) {
-      setPagination(currentPage)
+      setPagination(currentPage);
     }
   }, [state?.page]);
 
   useEffect(() => {
     fetchList(offset)
     .then((list: List) => {
-      const { results, count } = list || {}
-      setPokemonList(results || [])
-      setPokemonCount(count || 0)
-      setLoading(false)
-    })
+      const { results, count } = list || {};
+      setPokemonList(results || []);
+      setPokemonCount(count || 0);
+      setLoading(false);
+    });
   }, [offset, fetchList]);
 
   return (
@@ -60,5 +60,5 @@ export const Pokemons = () => {
         </>
       }
     </>
-  )
-}
+  );
+};

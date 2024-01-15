@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Grid, Paper, Skeleton } from '@mui/material';
-import { Pokemon } from '../types/Pokemon'
-import { toUpperCase } from '../utils/formatter'
+import { Pokemon } from '../types/Pokemon';
+import { toUpperCase } from '../utils/formatter';
 import { styled } from '@mui/material/styles';
 import pokeballImage from '../assets/pokeball.png';
 import CardMedia from '@mui/material/CardMedia';
-import './PokemonList.css'
+import './PokemonList.css';
 
 type Props = {
   page: number,
@@ -44,5 +44,5 @@ export const PokemonList: FC<Props> = ({ page, list, loading }) => {
         </Grid>
       )}
     </Grid>
-  )
-}
+  );
+};

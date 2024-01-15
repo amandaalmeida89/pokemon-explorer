@@ -10,7 +10,7 @@ export const PokemonApiService = (onError: ErrorHandler = () => {}) => {
       const response = await fetch(requestUrl);
       if (!response.ok) {
         const message = `Failed to fetch data from ${requestUrl}`;
-        onError(message)
+        onError(message);
         throw new Error(message);
       }
 

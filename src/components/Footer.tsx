@@ -18,5 +18,5 @@ export const Footer = () => {
           title="github Logo"/>
       </a>
     </Stack>
-  )
-}
+  );
+};

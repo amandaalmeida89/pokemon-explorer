@@ -1,7 +1,7 @@
 import { Stack, Container } from '@mui/system';
-import { Footer } from './components/Footer'
-import { PropsWithChildren } from 'react'
-import { ContextProvider } from './services/ContextProvider'
+import { Footer } from './components/Footer';
+import { PropsWithChildren } from 'react';
+import { ContextProvider } from './services/ContextProvider';
 import CardMedia from '@mui/material/CardMedia';
 import Logo from './assets/logo.png';
 
@@ -22,5 +22,5 @@ export const App = ({ children }: PropsWithChildren) => {
         <Footer></Footer>
       </Stack>
     </ContextProvider>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toUpperCase } from '../utils/formatter'
+import { toUpperCase } from '../utils/formatter';
 import { PokemonAbility } from '../types/Pokemon';
 import { Stack } from '@mui/system';
 import Card from '@mui/material/Card';
@@ -36,7 +36,7 @@ export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abil
 
   return (
     <Card sx={{ width: '100%', maxWidth: 500, padding:'16px' }}>
-      <Stack display={'flex'} sx={{ flexDirection: { xs: "column", md: "row", lg: "row" }}}>
+      <Stack display={'flex'} sx={{ flexDirection: { xs: 'column', md: 'row', lg: 'row' }}}>
         {loading ? (
           <>
             <Skeleton animation="wave" variant="rounded" width={'50%'} height={200} />
@@ -73,5 +73,5 @@ export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abil
           onClick={handleBack}>Back</Button>
       </ButtonAction>
     </Card>
-  )
-}
+  );
+};

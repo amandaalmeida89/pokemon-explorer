@@ -1,5 +1,5 @@
 import { createContext, useState, PropsWithChildren } from 'react';
-import { AbilitiesResponse, PokemonList } from '../types/Pokemon'
+import { AbilitiesResponse, PokemonList } from '../types/Pokemon';
 import { PokemonApiService } from './PokemonApiService';
 
 type ContextProps = {
@@ -15,7 +15,7 @@ export const ContextProvider = ({ children }: PropsWithChildren) => {
 
   const onError = (message: string) => {
     setError(message);
-  }
+  };
 
   const { fetchList, fetchByName } = PokemonApiService(onError);
 
@@ -26,4 +26,4 @@ export const ContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
-}
+};

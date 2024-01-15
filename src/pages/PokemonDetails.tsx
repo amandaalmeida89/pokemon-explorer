@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import {  parsedNumner } from '../utils/formatter'
+import {  parsedNumner } from '../utils/formatter';
 import { PokemonAbility, AbilitiesResponse } from '../types/Pokemon';
 import { Stack } from '@mui/system';
-import { PokemonCard } from '../components/PokemonCard'
-import { Context } from '../services/ContextProvider'
+import { PokemonCard } from '../components/PokemonCard';
+import { Context } from '../services/ContextProvider';
 import Alert from '@mui/material/Alert';
 
 export const PokemonDetails = () => {
@@ -14,11 +14,11 @@ export const PokemonDetails = () => {
   const { fetchByName, error } = useContext(Context);
 
   const { state } = useLocation();
-  const params = useParams()
-  const { name } = params || {}
+  const params = useParams();
+  const { name } = params || {};
 
-  const pokemonName = state?.name || name
-  const page = state?.page
+  const pokemonName = state?.name || name;
+  const page = state?.page;
 
   useEffect(() => {
     fetchByName(pokemonName)
@@ -28,8 +28,8 @@ export const PokemonDetails = () => {
       const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${parsedId}.png`;
       setImage(imageUrl);
       setAbilities(abilities || []);
-      setLoading(false)
-    })
+      setLoading(false);
+    });
   }, [pokemonName, fetchByName]);
 
   return (
@@ -40,5 +40,5 @@ export const PokemonDetails = () => {
         <PokemonCard page={page} image={image} loading={loading} pokemonName={pokemonName} abilities={abilities}/>
       }
     </Stack>
-  )
-}
+  );
+};
