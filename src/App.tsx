@@ -1,24 +1,26 @@
 import { Stack, Container } from '@mui/system';
-import Typography from '@mui/material/Typography';
 import { Footer } from './components/Footer'
 import { PropsWithChildren } from 'react'
+import { ContextProvider } from './services/ContextProvider'
+import CardMedia from '@mui/material/CardMedia';
+import Logo from './assets/logo.png';
 
 export const App = ({ children }: PropsWithChildren) => {
 
   return (
-    <Stack display={'flex'} justifyContent={'space-between'} height={'100vh'}>
-      <Container sx={{display: 'flex', flexDirection: 'column'}}>
-        <Typography gutterBottom
-          sx={{fontSize: { xs: "36px", md: "42px", lg: "48px" }}}
-          marginTop={'40px'}
-          textAlign={'center'}
-          variant="h1"
-          component="div">
-          Pokemon species
-        </Typography>
-        {children}
-      </Container>
-      <Footer></Footer>
-    </Stack>
+    <ContextProvider>
+      <Stack display={'flex'} justifyContent={'space-between'} minHeight={'100vh'}>
+        <Container sx={{display: 'flex', flexDirection: 'column'}}>
+          <Stack display={'flex'} alignItems={'center'} marginTop={'22px'}>
+            <CardMedia
+              sx={{ height: '100px', width: '300px'}}
+              image={Logo}
+              title="logo"/>
+          </Stack>
+          {children}
+        </Container>
+        <Footer></Footer>
+      </Stack>
+    </ContextProvider>
   )
 }
