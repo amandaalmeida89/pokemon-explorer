@@ -1,6 +1,4 @@
-import {
-  createBrowserRouter,
-} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import { Pokemons } from '../pages/Pokemons';
 import { PokemonDetails } from '../pages/PokemonDetails';
 

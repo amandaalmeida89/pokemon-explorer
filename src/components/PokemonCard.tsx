@@ -49,7 +49,7 @@ export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abil
           ):(
           <>
             <CardMedia
-              sx={{ height: 215, width: 215, display: 'flex' }}
+              sx={{ height: 215, width: '100%', maxWidth: 215, display: 'flex' }}
               image={image}
               title="pokemon image"/>
             <CardContent>

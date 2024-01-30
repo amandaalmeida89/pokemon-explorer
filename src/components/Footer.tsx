@@ -14,7 +14,7 @@ export const Footer = () => {
       <a target='new' href='https://github.com/amandaalmeida89/pokemon-explorer'>
         <CardMedia
           sx={{ height: 30, width: 30}}
-          image='./github.png'
+          image='/github.png'
           title="github Logo"/>
       </a>
     </Stack>

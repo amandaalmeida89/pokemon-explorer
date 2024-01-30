@@ -5,7 +5,7 @@ export const PokemonApiService = (onError: ErrorHandler = () => {}) => {
 
   const fetcher = async (path: string) => {
     const requestUrl = `${POKEMON_API}${path}`;
-  
+
     try {
       const response = await fetch(requestUrl);
       if (!response.ok) {

@@ -1,5 +1,11 @@
 export type Pokemon = {
-  name: string
+  name: string,
+  url: string
+}
+
+export type PokemonInfo = {
+  name: string,
+  id: number
 }
 
 export type PokemonList = {

@@ -1,15 +1,15 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { PokemonList } from '../components/PokemonList';
-import { Pokemon } from '../types/Pokemon';
+import { PokemonInfo } from '../types/Pokemon';
+import { Context } from '../services/ContextProvider';
+import { PokemonList as List } from '../types/Pokemon';
 import { Stack } from '@mui/system';
 import Pagination from '@mui/material/Pagination';
 import Alert from '@mui/material/Alert';
-import { Context } from '../services/ContextProvider';
-import { PokemonList as List } from '../types/Pokemon';
+import { PokemonList } from '../components/PokemonList';
 
 export const Pokemons = () => {
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [pokemonList, setPokemonList] = useState<PokemonInfo[]>([]);
   const [pokemonCount, setPokemonCount] = useState(0);
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
@@ -39,7 +39,15 @@ export const Pokemons = () => {
     fetchList(offset)
     .then((list: List) => {
       const { results, count } = list || {};
-      setPokemonList(results || []);
+      const formattedResults = results.map(({ name, url })=>{
+        const urlPartner = 'https://pokeapi.co/api/v2/pokemon/'
+        const pokemonId = url.replace(urlPartner, '').replace('/', '')
+        return {
+          name,
+          id: parseInt(pokemonId)
+        }
+      });
+      setPokemonList(formattedResults || []);
       setPokemonCount(count || 0);
       setLoading(false);
     });
@@ -51,10 +59,10 @@ export const Pokemons = () => {
         <Alert sx={{marginTop: '40px'}} severity="error">{error}</Alert>
         :
         <>
-          <Stack marginTop={'40px'} minHeight={'488px'}>
+          <Stack marginTop={'32px'} minHeight={'488px'}>
             <PokemonList page={page} loading={loading} list={pokemonList}/>
           </Stack>
-          <Stack marginBottom={'30px'} marginTop={'5%'} display={'flex'} alignItems={'center'} spacing={2}>
+          <Stack marginBottom={'30px'} marginTop={'3%'} display={'flex'} alignItems={'center'} spacing={2}>
             <Pagination color="primary" count={pagination} page={page} onChange={handleChange} />
           </Stack>
         </>

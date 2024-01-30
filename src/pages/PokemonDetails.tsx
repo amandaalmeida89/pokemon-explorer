@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import {  parsedNumner } from '../utils/formatter';
+import { Context } from '../services/ContextProvider';
 import { PokemonAbility, AbilitiesResponse } from '../types/Pokemon';
 import { Stack } from '@mui/system';
-import { PokemonCard } from '../components/PokemonCard';
-import { Context } from '../services/ContextProvider';
 import Alert from '@mui/material/Alert';
+import { PokemonCard } from '../components/PokemonCard';
+import { parseImageUrl } from '../utils/formatter';
 
 export const PokemonDetails = () => {
   const [abilities, setAbilities] = useState<PokemonAbility[]>([]);
@@ -24,8 +24,7 @@ export const PokemonDetails = () => {
     fetchByName(pokemonName)
     .then((list: AbilitiesResponse) => {
       const { abilities, id } = list || {};
-      const parsedId = parsedNumner(id || 1, 3, '0');
-      const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${parsedId}.png`;
+      const imageUrl = parseImageUrl(id)
       setImage(imageUrl);
       setAbilities(abilities || []);
       setLoading(false);
