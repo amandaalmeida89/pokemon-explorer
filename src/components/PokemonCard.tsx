@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toUpperCase } from '../utils/formatter';
-import { PokemonAbility } from '../types/Pokemon';
+import { PokemonDetails } from '../types/Pokemon';
 import { Stack } from '@mui/system';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -15,13 +15,13 @@ import { styled } from '@mui/material/styles';
 
 type Props = {
   page: number,
-  image: string,
   loading: boolean,
   pokemonName: string,
-  abilities: PokemonAbility[]
+  pokemonDetails: PokemonDetails,
 }
 
-export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abilities }) => {
+export const PokemonCard: FC<Props> = ({ page, loading, pokemonName, pokemonDetails }) => {
+  const { image, abilities, types } = pokemonDetails || {};
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -35,7 +35,7 @@ export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abil
   }));
 
   return (
-    <Card sx={{ width: '100%', maxWidth: 500, padding:'16px' }}>
+    <Card sx={{ width: '100%', maxWidth: 600, padding:'16px' }}>
       <Stack display={'flex'} sx={{ flexDirection: { xs: 'column', md: 'row', lg: 'row' }}}>
         {loading ? (
           <>
@@ -43,6 +43,7 @@ export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abil
             <Stack padding={'16px'} width={'60%'}>
               <Skeleton animation="wave" variant="rounded" height={40} />
               <Skeleton sx={{marginTop: '12px'}} animation="wave" variant="rounded" width={'50%'} height={32} />
+              <Skeleton sx={{marginTop: '8px'}} animation="wave" variant="rounded" width={'40%'} height={32} />
               <Skeleton sx={{marginTop: '8px'}} animation="wave" variant="rounded" width={'40%'} height={32} />
             </Stack>
           </>
@@ -60,8 +61,14 @@ export const PokemonCard: FC<Props> = ({ page, image, loading, pokemonName, abil
                 Abilities:
               </Typography>
               <Stack direction="row" spacing={1}>
-                {abilities.map(({ ability }, index)=>
+                {abilities?.map(({ ability }, index)=>
                   <Chip key={index} label={ability.name} />
+                )}
+              </Stack>
+              <Typography marginTop={'8px'} gutterBottom variant="h6">Type:</Typography>
+              <Stack direction="row" spacing={1}>
+                {types?.map(({ type }, index) =>
+                  <Chip key={index} label={type.name} />
                 )}
               </Stack>
             </CardContent>

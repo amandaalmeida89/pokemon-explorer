@@ -1,15 +1,14 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Context } from '../services/ContextProvider';
-import { PokemonAbility, AbilitiesResponse } from '../types/Pokemon';
+import { AbilitiesResponse, PokemonDetails as PokemonTypeDetails} from '../types/Pokemon';
+import { parseImageUrl } from '../utils/formatter';
 import { Stack } from '@mui/system';
 import Alert from '@mui/material/Alert';
 import { PokemonCard } from '../components/PokemonCard';
-import { parseImageUrl } from '../utils/formatter';
 
 export const PokemonDetails = () => {
-  const [abilities, setAbilities] = useState<PokemonAbility[]>([]);
-  const [image, setImage] = useState('');
+  const [pokemonDetails, setPokemonDetails] = useState<PokemonTypeDetails>({});
   const [loading, setLoading] = useState(true);
   const { fetchByName, error } = useContext(Context);
 
@@ -23,10 +22,14 @@ export const PokemonDetails = () => {
   useEffect(() => {
     fetchByName(pokemonName)
     .then((list: AbilitiesResponse) => {
-      const { abilities, id } = list || {};
-      const imageUrl = parseImageUrl(id)
-      setImage(imageUrl);
-      setAbilities(abilities || []);
+      const { abilities, id, types } = list || {};
+      const imageUrl = parseImageUrl(id);
+      const pokemonDetails = {
+        image: imageUrl,
+        abilities: abilities || [],
+        types
+      };
+      setPokemonDetails(pokemonDetails);
       setLoading(false);
     });
   }, [pokemonName, fetchByName]);
@@ -36,7 +39,7 @@ export const PokemonDetails = () => {
       {error ?
         <Alert sx={{marginTop: '40px'}} severity="error">{error}</Alert>
         :
-        <PokemonCard page={page} image={image} loading={loading} pokemonName={pokemonName} abilities={abilities}/>
+        <PokemonCard page={page} loading={loading} pokemonName={pokemonName} pokemonDetails={pokemonDetails}/>
       }
     </Stack>
   );

@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { PokemonInfo } from '../types/Pokemon';
-import { toUpperCase } from '../utils/formatter';
+import { toUpperCase, parseImageUrl } from '../utils/formatter';
 import { Grid, Paper, Skeleton } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { parseImageUrl } from '../utils/formatter';
 import CardMedia from '@mui/material/CardMedia';
 import './PokemonList.css';
 
@@ -25,7 +24,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 export const PokemonList: FC<Props> = ({ page, list, loading }) => {
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       {list.map(({ name, id }, index)=>
         <Grid display={'flex'} justifyContent={'center'} key={index} item xs={12} sm={12} md={3}>
           {loading ?
