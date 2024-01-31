@@ -11,7 +11,7 @@ export const App = ({ children }: PropsWithChildren) => {
     <ContextProvider>
       <Stack display={'flex'} justifyContent={'space-between'} minHeight={'100vh'}>
         <Container sx={{display: 'flex', flexDirection: 'column'}}>
-          <Stack display={'flex'} alignItems={'center'} marginTop={'16px'}>
+          <Stack display={'flex'} alignItems={'center'} marginTop={'32px'}>
             <CardMedia
               sx={{ height: '100px', width: '300px'}}
               image={Logo}

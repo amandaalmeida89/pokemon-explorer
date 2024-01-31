@@ -4,11 +4,11 @@ import { Context } from '../services/ContextProvider';
 import { PokemonInfo, PokemonList as List } from '../types/Pokemon';
 import { Stack } from '@mui/system';
 import Pagination from '@mui/material/Pagination';
-import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import { PokemonList } from '../components/PokemonList';
+import { BackgroundError } from '../components/BackgroundError';
 
 export const Pokemons = () => {
   const [pokemonList, setPokemonList] = useState<PokemonInfo[]>([]);
@@ -17,9 +17,10 @@ export const Pokemons = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { fetchList, error } = useContext(Context);
+  const { fetchList } = useContext(Context);
   const pagination = Math.ceil(pokemonCount/ 20);
 
   const isDisabled = pokemonName.length < 2;
@@ -33,6 +34,10 @@ export const Pokemons = () => {
     return navigate(`details/${name}`, { state : { name, page } });
   };
 
+  const handleReload = () => {
+    return navigate(0);
+  };
+
   const setPagination = (value: number) => {
     setLoading(true);
     setPage(value);
@@ -41,7 +46,7 @@ export const Pokemons = () => {
 
   useEffect(() => {
     const currentPage = state?.page;
-    if(currentPage) {
+    if (currentPage) {
       setPagination(currentPage);
     }
   }, [state?.page]);
@@ -61,13 +66,15 @@ export const Pokemons = () => {
       setPokemonList(formattedResults || []);
       setPokemonCount(count || 0);
       setLoading(false);
+    }).catch(() => {
+      setErrorMessage('Something went wrong.');
     });
   }, [offset, fetchList]);
 
   return (
     <>
-      {error ?
-        <Alert sx={{marginTop: '40px'}} severity="error">{error}</Alert>
+      {errorMessage ?
+        <BackgroundError handleAction={handleReload} errorMessage={errorMessage} buttonText='Reload'/>
         :
         <>
           <Stack flexDirection={'row'} justifyContent={'end'} marginTop={'16px'}>

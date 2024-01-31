@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toUpperCase } from '../utils/formatter';
 import { PokemonDetails } from '../types/Pokemon';
 import { Stack } from '@mui/system';
@@ -8,25 +7,36 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import { PokemonCardText } from './PokemonCardText';
 
 type Props = {
   page: number,
+  handleBack: () => void,
   loading: boolean,
   pokemonName: string,
   pokemonDetails: PokemonDetails,
 }
 
-export const PokemonCard: FC<Props> = ({ page, loading, pokemonName, pokemonDetails }) => {
+export const PokemonCard: FC<Props> = ({ handleBack, loading, pokemonName, pokemonDetails }) => {
   const { image, abilities, types } = pokemonDetails || {};
-  const navigate = useNavigate();
 
-  const handleBack = () => {
-    return navigate('/', { state : { page } });
-  };
+  const infoTags = [
+    {
+      title: 'Abilities',
+      tags: abilities?.map(({ ability }) => {
+        return { name: ability?.name };
+      })
+    },
+    {
+      title: 'Type',
+      tags: types?.map(({ type }) => {
+        return { name: type?.name };
+      })
+    }
+  ];
 
   const ButtonAction = styled(CardActions)(({ theme }) => ({
     display: 'flex',
@@ -57,20 +67,9 @@ export const PokemonCard: FC<Props> = ({ page, loading, pokemonName, pokemonDeta
               <Typography gutterBottom variant="h4" component="div">
                 {toUpperCase(pokemonName)}
               </Typography>
-              <Typography gutterBottom variant="h6" component="div">
-                Abilities:
-              </Typography>
-              <Stack direction="row" spacing={1}>
-                {abilities?.map(({ ability }, index)=>
-                  <Chip key={index} label={ability.name} />
-                )}
-              </Stack>
-              <Typography marginTop={'8px'} gutterBottom variant="h6">Type:</Typography>
-              <Stack direction="row" spacing={1}>
-                {types?.map(({ type }, index) =>
-                  <Chip key={index} label={type.name} />
-                )}
-              </Stack>
+              {infoTags.map(({ title, tags })=>
+                <PokemonCardText title={title} tags={tags || []}></PokemonCardText>
+              )}
             </CardContent>
           </>
         )}

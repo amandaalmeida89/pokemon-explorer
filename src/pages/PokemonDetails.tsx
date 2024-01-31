@@ -1,23 +1,29 @@
 import { useEffect, useState, useContext } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { Context } from '../services/ContextProvider';
 import { AbilitiesResponse, PokemonDetails as PokemonTypeDetails} from '../types/Pokemon';
 import { parseImageUrl } from '../utils/formatter';
 import { Stack } from '@mui/system';
-import Alert from '@mui/material/Alert';
 import { PokemonCard } from '../components/PokemonCard';
+import { BackgroundError } from '../components/BackgroundError';
 
 export const PokemonDetails = () => {
   const [pokemonDetails, setPokemonDetails] = useState<PokemonTypeDetails>({});
   const [loading, setLoading] = useState(true);
-  const { fetchByName, error } = useContext(Context);
+  const [errorMessage, setErrorMessage] = useState('');
+  const { fetchByName } = useContext(Context);
 
+  const navigate = useNavigate();
   const { state } = useLocation();
   const params = useParams();
   const { name } = params || {};
 
   const pokemonName = state?.name || name;
   const page = state?.page;
+
+  const handleBack = () => {
+    return navigate('/', { state : { page } });
+  };
 
   useEffect(() => {
     fetchByName(pokemonName)
@@ -31,15 +37,17 @@ export const PokemonDetails = () => {
       };
       setPokemonDetails(pokemonDetails);
       setLoading(false);
+    }).catch(() => {
+      setErrorMessage('Pokémon not found, return to main page to search again.');
     });
   }, [pokemonName, fetchByName]);
 
   return (
     <Stack display={'flex'} alignItems={'center'} marginTop={'48px'}>
-      {error ?
-        <Alert sx={{marginTop: '40px'}} severity="error">{error}</Alert>
+      {errorMessage ?
+        <BackgroundError handleAction={handleBack} errorMessage={errorMessage} buttonText='Back'/>
         :
-        <PokemonCard page={page} loading={loading} pokemonName={pokemonName} pokemonDetails={pokemonDetails}/>
+        <PokemonCard handleBack={handleBack} page={page} loading={loading} pokemonName={pokemonName} pokemonDetails={pokemonDetails}/>
       }
     </Stack>
   );

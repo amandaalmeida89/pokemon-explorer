@@ -9,7 +9,7 @@ exports[`App Component renders initial page 1`] = `
       class="MuiContainer-root MuiContainer-maxWidthLg css-1xon2ic-MuiContainer-root"
     >
       <div
-        class="MuiStack-root css-w04vg1-MuiStack-root"
+        class="MuiStack-root css-1so7h5i-MuiStack-root"
       >
         <div
           class="MuiCardMedia-root css-18umj25-MuiCardMedia-root"
@@ -36,7 +36,7 @@ exports[`App Component renders initial page 1`] = `
         <div
           class="MuiCardMedia-root css-1qs2s98-MuiCardMedia-root"
           role="img"
-          style="background-image: url(./github.png);"
+          style="background-image: url(/github.png);"
           title="github Logo"
         />
       </a>
