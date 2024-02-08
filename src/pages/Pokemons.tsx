@@ -42,6 +42,7 @@ export const Pokemons = () => {
     setLoading(true);
     setPage(value);
     setOffset((value - 1) * 20);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
